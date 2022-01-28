@@ -104,8 +104,11 @@ class Puzzle(models.Model):
 
     emoji = models.CharField(
         max_length=32, default=':question:',
-        help_text='Emoji to use in Discord integrations involving this puzzle'
-    )
+        help_text='Emoji to use in Discord integrations involving this puzzle')
+
+    prereq_group = models.CharField(blank=True,
+        max_length=1024,
+        help_text='Comma-separated slugs of puzzles, any of which must be solved to unlock this one')
 
     def clean(self):
         if not self.body_template:
@@ -441,6 +444,16 @@ class Team(models.Model):
                 unlocked_at = context.start_time
             elif context.team:
                 (global_solves, local_solves) = context.team.main_round_solves
+                if puzzle.prereq_group and len(puzzle.prereq_group)>0 and context.team:
+                    prereqs = puzzle.prereq_group.split(',')
+                    satisfied = False
+                    teamsolves = [context.team.solves[x].slug for x in context.team.solves]
+                    for prereq in prereqs:
+                      if prereq in teamsolves:
+                            satisfied = True
+                            break
+                    if satisfied:
+                        unlocked_at = context.now  
                 if 0 <= puzzle.unlock_global <= global_solves and (global_solves or any(metas_solved)):
                     unlocked_at = context.now
                 if 0 <= puzzle.unlock_local <= local_solves[puzzle.round.slug]:

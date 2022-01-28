@@ -32,7 +32,7 @@ class PuzzleAdmin(admin.ModelAdmin):
 
     inlines = [PuzzleMessageInline]
     ordering = ('round__order', 'order')
-    list_display = ('name', 'slug', 'round', 'order', 'unlock_hours', 'unlock_global', 'unlock_local', 'is_meta', 'emoji')
+    list_display = ('name', 'slug', 'round', 'order', 'unlock_hours', 'unlock_global', 'unlock_local', 'is_meta', 'emoji','prereq_group')
     list_filter = ('round', 'is_meta')
 
 class TeamMemberAdmin(admin.ModelAdmin):

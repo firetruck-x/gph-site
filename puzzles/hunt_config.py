@@ -26,8 +26,8 @@ INITIAL_STATS_AVAILABLE = False
 SURVEYS_AVAILABLE = False
 
 HUNT_START_TIME = timezone.make_aware(datetime.datetime(
-    year=9001,
-    month=1,
+    year=2022,
+    month=5,
     day=1,
     hour=0,
     minute=0,

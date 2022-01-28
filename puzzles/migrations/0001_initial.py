@@ -27,6 +27,8 @@ class Migration(migrations.Migration):
                 ('deep', models.IntegerField(help_text='DEEP/Progress threshold teams must meet to unlock this puzzle', verbose_name='DEEP threshold')),
                 ('is_meta', models.BooleanField(default=False)),
                 ('emoji', models.CharField(default=':question:', help_text='Emoji to use in Discord integrations involving this puzzle', max_length=500)),
+                ('prereq_group',models.CharField(
+                max_length=1024, help_text='Comma-separated slugs of puzzles, any of which must be solved to unlock this one',blank=True)),
                 ('metas', models.ManyToManyField(blank=True, help_text='All metas that this puzzle is part of', limit_choices_to={'is_meta': True}, to='puzzles.Puzzle')),
             ],
         ),

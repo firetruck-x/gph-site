@@ -87,6 +87,11 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterField(
             model_name='puzzle',
+            name='prereq_group',
+            field=models.CharField(max_length=1024),
+        ),
+        migrations.AlterField(
+            model_name='puzzle',
             name='slug',
             field=models.SlugField(help_text='Slug used in URLs to identify this puzzle (must be unique)', max_length=255, unique=True),
         ),
